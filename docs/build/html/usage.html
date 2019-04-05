@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Usage &mdash; specstack 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How does it work?" href="how.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> specstack
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-command-line-interface-help">The command line interface help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mandatory-arguments">Mandatory arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optional-arguments">Optional arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="how.html">How does it work?</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">specstack</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usage">
+<span id="usagecli"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-command-line-interface-help">
+<h2>The command line interface help<a class="headerlink" href="#the-command-line-interface-help" title="Permalink to this headline">¶</a></h2>
+<p>You start specstack from a terminal. specstack comes with a command line interface which includes a ‘help’ that you can display in your terminal using the help command. It must be called like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[user@machine]$ specstack --help
+</pre></div>
+</div>
+<p>This command will display the help of the program:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">specstack</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span> <span class="n">S</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">method</span> <span class="n">METHOD</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">f</span> <span class="n">F</span><span class="p">]</span>
+                 <span class="n">speclist</span> <span class="n">normlimits</span> <span class="nb">bin</span>
+
+<span class="n">specstack</span> <span class="n">V19</span><span class="o">.</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">R</span><span class="o">.</span> <span class="n">Thomas</span><span class="p">,</span> <span class="mi">2018</span><span class="p">,</span> <span class="n">ESO</span><span class="p">,</span> <span class="n">This</span> <span class="n">program</span> <span class="n">comes</span> <span class="k">with</span> <span class="n">ABSOLUTELY</span> <span class="n">NO</span>
+<span class="n">WARRANTY</span><span class="p">;</span> <span class="ow">and</span> <span class="ow">is</span> <span class="n">distributed</span> <span class="n">under</span> <span class="n">the</span> <span class="n">GPLv3</span><span class="o">.</span><span class="mi">0</span> <span class="n">Licence</span> <span class="n">terms</span><span class="o">.</span><span class="n">See</span> <span class="n">the</span> <span class="n">version</span>
+<span class="n">of</span> <span class="n">this</span> <span class="n">Licence</span> <span class="n">distributed</span> <span class="n">along</span> <span class="n">this</span> <span class="n">code</span> <span class="k">for</span> <span class="n">details</span><span class="o">.</span>
+
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">speclist</span>         <span class="n">File</span> <span class="k">with</span> <span class="n">col1</span> <span class="o">=</span> <span class="n">spectra</span> <span class="n">names</span><span class="p">,</span> <span class="n">col2</span> <span class="o">=</span> <span class="n">redshift</span>
+  <span class="n">normlimits</span>       <span class="n">l1</span> <span class="ow">and</span> <span class="n">l2</span> <span class="ow">in</span> <span class="n">angstrom</span> <span class="n">where</span> <span class="n">the</span> <span class="n">spectra</span> <span class="n">will</span> <span class="n">be</span> <span class="n">normalised</span>
+  <span class="nb">bin</span>              <span class="n">Binning</span> <span class="n">of</span> <span class="n">the</span> <span class="n">stacked</span> <span class="n">spectrum</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>       <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">s</span> <span class="n">S</span>             <span class="n">Sigma</span> <span class="n">we</span> <span class="n">use</span> <span class="k">for</span> <span class="n">the</span> <span class="n">clipping</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">3</span>
+  <span class="o">-</span><span class="n">p</span>               <span class="n">If</span> <span class="n">plot</span> <span class="n">at</span> <span class="n">the</span> <span class="n">end</span>
+  <span class="o">-</span><span class="n">f</span> <span class="n">F</span>             <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">final</span> <span class="n">file</span>
+</pre></div>
+</div>
+<p>specstack has few optionnal arguments and 3 mandatory arguements. You can not start specstack without any argument:</p>
+</div>
+<div class="section" id="mandatory-arguments">
+<h2>Mandatory arguments<a class="headerlink" href="#mandatory-arguments" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><strong>speclist:</strong> This is the file that contains the list of spectra you want to stack. This files should have two columns:</dt>
+<dd><ul class="first last">
+<li>the <strong>spec</strong> column: name of the spectrum file to use</li>
+<li>the <strong>redshift</strong> column: redshift of the spectrum</li>
+<li>The header of the file should be <strong>‘#redshift spec’</strong>. The names of the columns should be there.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#redshift       spec</span>
+<span class="mf">3.5</span>             <span class="n">spec1</span><span class="o">.</span><span class="n">txt</span>
+<span class="mf">3.7</span>             <span class="n">spec2</span><span class="o">.</span><span class="n">txt</span>
+<span class="mf">3.65</span>            <span class="n">spec3</span><span class="o">.</span><span class="n">txt</span>
+<span class="o">.</span>               <span class="o">.</span>
+<span class="o">.</span>               <span class="o">.</span>
+<span class="o">.</span>               <span class="o">.</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Each spectrum should be an ascii file with (wavelength-flux) columns. Wavelength should be in Angstrom.</p>
+</div>
+<ul class="simple">
+<li><strong>normlimits</strong>: This is where the spectra are going to be normalized. It consists of two wavelength in angstrom, separated by a coma. Example: <strong>1020,1120</strong>.</li>
+<li><strong>bin</strong>: This is the final binning, in angstrom, of the spectrum.</li>
+</ul>
+</div>
+<div class="section" id="optional-arguments">
+<h2>Optional arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>-h and ‘- -help’: Display this help in the terminal.</li>
+<li><strong>-s</strong>: The program uses a simgal clipping algorithm to compute the stack. The default value is 3sigma but you can as well use a different number of sigma if you want too. Example: <strong>-s 4</strong> will use a 4-sigma clipping.</li>
+<li><strong>-p</strong>: If you want to see the result of the stacking as a plot directly after the computation.</li>
+<li><strong>-f</strong>: By default the stacked spectrum is saved in a text file with wavelength-stackflux-standard deviation. The file is by default called ‘stacked.txt’. But if you want to give another name you can use that option. Example: <strong>-f final_stack.txt</strong>. This way the final file will be called final_stack.txt.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="how.html" class="btn btn-neutral float-right" title="How does it work?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, R. Thomas
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

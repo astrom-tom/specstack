@@ -1,0 +1,12 @@
+README.md
+setup.py
+specstack/__main__.py
+specstack/cli.py
+specstack/plot.py
+specstack/spec.py
+specstack.egg-info/PKG-INFO
+specstack.egg-info/SOURCES.txt
+specstack.egg-info/dependency_links.txt
+specstack.egg-info/entry_points.txt
+specstack.egg-info/requires.txt
+specstack.egg-info/top_level.txt

@@ -31,7 +31,7 @@ class CLI:
         """
         This function creates defines the 7 main arguments of specstack using the argparse module
         """
-        parser = argparse.ArgumentParser(description="specstack V19.4.0, R. Thomas, 2018, ESO, \
+        parser = argparse.ArgumentParser(description="specstack V19.4.1, R. Thomas, 2018, ESO, \
                 This program comes with ABSOLUTELY NO WARRANTY; and is distributed under \
                 the GPLv3.0 Licence terms.See the version of this Licence distributed along \
                 this code for details.")
@@ -45,6 +45,7 @@ class CLI:
         #parser.add_argument('--method', default='sigmaclip', help="method used to stack spectrum, \
         #                                    can be sigma clipping, errors, mean, median. Default is sigmaclip")
         parser.add_argument('-f', help="Name of the final file", default='stacked.txt')
+        parser.add_argument('--version', help="Display the version", action='store_true')
         ##### GET the Arguments for specstack startup
         self.arguments = parser.parse_args()
 

@@ -1,9 +1,10 @@
 Metadata-Version: 1.2
 Name: specstack
-Version: 19.4.0
-Summary: A simple catalog matching script
-Home-page: UNKNOWN
+Version: 19.4.2
+Summary: A simple catalog matching spectrum stacking tool
+Home-page: https://astrom-tom.github.io/dfitspy/build/html/index.html
 Author: Romain Thomas
+Author-email: the.spartan.proj@gmail.com
 License: UNKNOWN
 Description: UNKNOWN
 Platform: UNKNOWN

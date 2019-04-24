@@ -16,7 +16,7 @@ This file configures the plotting lines
 import matplotlib.pyplot as plt
 
 
-def plot(grid, stacked, std):
+def plot(grid, stacked, std, indiv, grid_indiv):
     '''
     Function that plots the stacked spectrum and the sigma
 
@@ -37,11 +37,17 @@ def plot(grid, stacked, std):
     None    --> it is plot!
     '''
 
+    print(len(indiv[0]))
+    print(len(grid_indiv.shape))
+
     fig = plt.figure()
     aa = fig.add_subplot(111)
     aa.minorticks_on()
 
-    aa.fill_between(grid, 0, stacked, color='0.5', zorder=0)
+    #aa.fill_between(grid, 0, stacked, color='0.5', zorder=0)
+    for i in indiv:
+        aa.plot(grid_indiv, i, lw=0.1, zorder=0)
+
     aa.plot(grid, stacked, 'k', lw=0.5, zorder=1, label='Stacked Spectrum')
     aa.plot([grid[0], grid[-1]], [0, 0], lw=1, ls='--', zorder=1, color='k')
     aa.plot(grid, std, 'b', lw=0.5, zorder=1, label='1$\sigma$')

@@ -23,6 +23,8 @@ from . import cli
 from . import spec
 from . import plot
 
+__version__ = '19.4.2'
+
 def main():
     '''
     This function is the main of the catmatch.
@@ -32,18 +34,20 @@ def main():
         ####get arguments from the command lien interface
         args = cli.CLI().arguments
 
+        
+
         ###check normalisation limits
         lims = args.normlimits.split(',')
         lims = [float(lims[0]), float(lims[1])]
         if lims[0]>=lims[1]:
-            print('Normalisation limits error: l0>=l1, must be l0<l1!')
-            print('quitting...')
+            print('\033[1m Normalisation limits error: l0>=l1, must be l0<l1! \033[0m')
+            print('\033[1m Quitting... \033[0m')
             sys.exit()
 
         ###check if file exist
         if not os.path.isfile(args.speclist):
-            print('File %s not found'%args.speclist)
-            print('quitting...')
+            print('\033[1m File %s not found \033[0m'%args.speclist)
+            print('\033[1m Quitting... \033[0m')
 
 
         ##if everything is ready we start looking at the list of files
@@ -52,14 +56,13 @@ def main():
         names = catalog.get_column('spec', str)
         redshift = catalog.get_column('redshift', float)
 
-
         ###we restframe all the files
         restframe = []
         waves_0 = []
         waves_f = []
         for (i,j) in zip(names, redshift):
             if not os.path.isfile(i):
-                print('Spectrum %s not found, skip'%i)
+                print('\033[1m Spectrum %s not found, skip \033[0m'%i)
 
             else:
                 wave, flux = spec.restframe_normalised(i, j, lims[0], lims[1])
@@ -93,7 +96,7 @@ def main():
 
         ##eventually plot
         if args.p:
-            plot.plot(final_grid, final_stack, final_std)
+            plot.plot(final_grid, final_stack, final_std, rebinned, grid)
                         
     except KeyboardInterrupt:
         print('quitting...')

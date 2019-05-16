@@ -23,8 +23,6 @@ from . import cli
 from . import spec
 from . import plot
 
-__version__ = '19.4.2'
-
 def main():
     '''
     This function is the main of the catmatch.
@@ -33,8 +31,6 @@ def main():
     try:
         ####get arguments from the command lien interface
         args = cli.CLI().arguments
-
-        
 
         ###check normalisation limits
         lims = args.normlimits.split(',')
@@ -66,9 +62,10 @@ def main():
 
             else:
                 wave, flux = spec.restframe_normalised(i, j, lims[0], lims[1])
-                restframe.append((wave, flux))
-                waves_0.append(wave[0])
-                waves_f.append(wave[-1])
+                if wave != []:
+                    restframe.append((wave, flux))
+                    waves_0.append(wave[0])
+                    waves_f.append(wave[-1])
 
         ##define limits of the spectrum
         minw = max(waves_0)

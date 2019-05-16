@@ -56,12 +56,19 @@ def main():
         restframe = []
         waves_0 = []
         waves_f = []
+        N = 0
         for (i,j) in zip(names, redshift):
-            if not os.path.isfile(i):
+            if args.d:
+                filespec = os.path.join(args.d, i)
+            else:
+                filespec = i
+
+            if not os.path.isfile(filespec):
                 print('\033[1m Spectrum %s not found, skip \033[0m'%i)
 
             else:
-                wave, flux = spec.restframe_normalised(i, j, lims[0], lims[1])
+                N += 1
+                wave, flux = spec.restframe_normalised(filespec, j, lims[0], lims[1])
                 if wave != []:
                     restframe.append((wave, flux))
                     waves_0.append(wave[0])
@@ -71,6 +78,7 @@ def main():
         minw = max(waves_0)
         maxw = min(waves_f)
         print('\033[1m The stack spectrum will be computed between %.1f and %.1f \033[0m'%(minw, maxw))
+        print('\033[1m The stack spectrum will be computed from %s spectra \033[0m'%N)
         grid = numpy.arange(minw, maxw, 1)
 
        ##and new grid
@@ -79,17 +87,18 @@ def main():
         rebinned = spec.regrid(restframe, grid)
 
         ##create stack
-        stacked, std = spec.stack(rebinned, float(args.s))
+        stacked, std, ermean = spec.stack(rebinned, float(args.s))
 
         ##and prod 
         final_grid = numpy.arange(minw, maxw, float(args.bin))
         final_stack = numpy.interp(final_grid, grid, stacked)
         final_std = numpy.interp(final_grid, grid, std)
+        final_ermean = numpy.interp(final_grid, grid, ermean)
         
         wave, flux = spec.renorm(final_grid, final_stack, 0, lims[0], lims[1])
 
         ##and save it
-        numpy.savetxt(args.f, numpy.array([wave, flux, final_std]).T)
+        numpy.savetxt(args.f, numpy.array([wave, flux, final_std, final_ermean]).T)
 
         ##eventually plot
         if args.p:

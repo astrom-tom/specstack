@@ -44,7 +44,9 @@ class CLI:
         parser.add_argument('-p', help="If plot at the end", action='store_true')
         #parser.add_argument('--method', default='sigmaclip', help="method used to stack spectrum, \
         #                                    can be sigma clipping, errors, mean, median. Default is sigmaclip")
+        parser.add_argument('-d', help="directory", type=str)
         parser.add_argument('-f', help="Name of the final file", default='stacked.txt')
+
         ##### GET the Arguments for specstack startup
         self.arguments = parser.parse_args()
 

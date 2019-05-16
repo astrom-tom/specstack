@@ -16,7 +16,7 @@ This file configures the plotting lines
 import matplotlib.pyplot as plt
 
 
-def plot(grid, stacked, std, indiv, grid_indiv):
+def plot(grid, stacked, std, ermean, indiv, grid_indiv):
     '''
     Function that plots the stacked spectrum and the sigma
 
@@ -30,6 +30,9 @@ def plot(grid, stacked, std, indiv, grid_indiv):
 
     std     numpy.array
             associated standard deviation
+
+    ermean  numpy.array
+            associated error on the mean
 
     Returns
     -------
@@ -51,6 +54,7 @@ def plot(grid, stacked, std, indiv, grid_indiv):
     aa.plot(grid, stacked, 'k', lw=0.5, zorder=1, label='Stacked Spectrum')
     aa.plot([grid[0], grid[-1]], [0, 0], lw=1, ls='--', zorder=1, color='k')
     aa.plot(grid, std, 'b', lw=0.5, zorder=1, label='1$\sigma$')
+    aa.plot(grid, ermean, 'r', lw=0.5, zorder=1, label='Error on the mean')
 
     aa.legend()
     aa.set_xlim(grid[0], grid[-1])

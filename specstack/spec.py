@@ -176,7 +176,7 @@ def stack(rebinned, sigma):
         c, low, upp = stats.sigmaclip(i, sigma, sigma)
         stacked.append(numpy.mean(c))
         std.append(numpy.std(c))
-        ermean.append(numpy.mean(c)/numpy.sqrt(len(i)))
+        ermean.append(numpy.std(c)/numpy.sqrt(len(i)))
         #std.append(numpy.median(numpy.abs(c-numpy.median(c))))
 
     return numpy.array(stacked), numpy.array(std), numpy.array(ermean)

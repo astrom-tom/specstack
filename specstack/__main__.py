@@ -102,7 +102,7 @@ def main():
 
         ##eventually plot
         if args.p:
-            plot.plot(final_grid, final_stack, final_std, rebinned, grid)
+            plot.plot(final_grid, final_stack, final_std, final_ermean, rebinned, grid)
                         
     except KeyboardInterrupt:
         print('quitting...')

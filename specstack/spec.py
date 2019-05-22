@@ -14,12 +14,13 @@ This file contains the spectroscopic source code
 
 ##Python standard library
 import sys
+import time
 
 ##python third party
 import numpy
 import scipy.stats as stats
 
-def restframe_normalised(spec, z, l0, l1):
+def restframe_normalised(spec, z, l0, l1, SNR, verbose):
     '''
     This function deredshift the wavelength grid
     and normalise the spectrum between l0 and l1
@@ -28,12 +29,22 @@ def restframe_normalised(spec, z, l0, l1):
     ----------
     spec    str
             name of the spectrum to deredshift
+
     z       float
             redshift of the spectrum
+
     l0      float
             lower limit of the zone where we normalize
+
     l1      float
             upper limit ''' ''' ''' ''' ''' '''
+
+    SNR     str
+            SNR,l1_snr,l0_snr threshold of the SNR to compute in
+            between snr_l0 and snr_l1
+
+    verbose Bool
+            True or false for printouts
 
     Returns
     -------
@@ -51,14 +62,34 @@ def restframe_normalised(spec, z, l0, l1):
     ##deredshift the wavelength
     wave_0 = wave/(1+z) 
 
+    ###SNR --> if the user gave something then we must compute it!
+    if SNR != None:
+        snr_threshold = float(SNR.split(',')[0])
+        snr_l0 = float(SNR.split(',')[1])
+        snr_lf = float(SNR.split(',')[2])
+        reg_snr = numpy.where(numpy.logical_and(numpy.greater_equal(wave_0,snr_l0),\
+                numpy.less_equal(wave_0,snr_lf)))
+        
+        ##compute snr
+        mean = numpy.median(flux[reg_snr])
+        std = numpy.std(flux[reg_snr])
+        snr_data = mean/std
+
+        if snr_data < snr_threshold:
+            if verbose:
+                print('The SNR is too low for spec %s (SNR=%s)'%(spec, snr_data))
+            return [], []
+
+
     ###find the region where to normalize
     reg = numpy.where(numpy.logical_and(numpy.greater_equal(wave_0,l0),numpy.less_equal(wave_0,l1)))
+
     ###check if the region reports anything
     if len(reg[0]) == 0:
-        print('the region does not exist in spec %s(restframe), we skip'%spec)
+        if verbose:
+            print('the region does not exist in spec %s(restframe), we skip'%spec)
         return [], []
     
-
     region = wave_0[reg]
 
     ###compute the median in the region
@@ -70,7 +101,7 @@ def restframe_normalised(spec, z, l0, l1):
     return wave_0, flux_norm
 
 
-def renorm(wave, flux, z, l0, l1):
+def renorm(wave, flux, z, l0, l1, verbose):
     '''
     This function deredshift the wavelength grid
     and normalise the spectrum between l0 and l1
@@ -101,11 +132,12 @@ def renorm(wave, flux, z, l0, l1):
 
     ###find the region where to normalize
     reg = numpy.where(numpy.logical_and(numpy.greater_equal(wave_0,l0),numpy.less_equal(wave_0,l1)))
+
     ###check if the region reports anything
     if len(reg[0]) == 0:
-        print('the region does not exist in spec %s(restframe), we skip'%spec)
+        if verbose:
+            print('the region does not exist in spec %s(restframe), we skip'%spec)
         return [], []
-    
 
     region = wave_0[reg]
 
@@ -141,6 +173,10 @@ def regrid(restframe,  grid):
     rebinned = []
     for i in restframe:
         r = numpy.interp(grid, i[0], i[1])
+        index_nan_min = numpy.where(grid<i[0][0])
+        r[index_nan_min] = numpy.nan
+        index_nan_max = numpy.where(grid>i[0][-1])
+        r[index_nan_max] = numpy.nan
         rebinned.append(r)
 
     return rebinned
@@ -172,13 +208,23 @@ def stack(rebinned, sigma):
     stacked = []
     std = []
     ermean = []
+    N = []
     for i in specs:
-        c, low, upp = stats.sigmaclip(i, sigma, sigma)
-        stacked.append(numpy.mean(c))
-        std.append(numpy.std(c))
-        ermean.append(numpy.std(c)/numpy.sqrt(len(i)))
-        #std.append(numpy.median(numpy.abs(c-numpy.median(c))))
+        no_nan = numpy.count_nonzero(~numpy.isnan(i))
+        index = numpy.where(numpy.isnan(i) == False)
+        N.append(no_nan)
+        if no_nan == 1:
+            stacked.append(i[index][0])
+            std.append(i[index][0])
+            ermean.append(i[index][0])
+        elif no_nan < 10:
+            stacked.append(numpy.nanmean(i[index]))
+            std.append(numpy.nanstd(i[index]))
+            ermean.append(numpy.nanstd(numpy.sqrt(no_nan)))
+        else:
+            c, low, upp = stats.sigmaclip(i[index], sigma, sigma)
+            stacked.append(numpy.nanmean(c))
+            std.append(numpy.nanstd(c))
+            ermean.append(numpy.nanstd(c)/numpy.count_nonzero(~numpy.isnan(c)))
 
-    return numpy.array(stacked), numpy.array(std), numpy.array(ermean)
-
-
+    return numpy.array(stacked), numpy.array(std), numpy.array(ermean), numpy.array(N)

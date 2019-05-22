@@ -45,7 +45,11 @@ class CLI:
         #parser.add_argument('--method', default='sigmaclip', help="method used to stack spectrum, \
         #                                    can be sigma clipping, errors, mean, median. Default is sigmaclip")
         parser.add_argument('-d', help="directory", type=str)
+        parser.add_argument('-v', help="verbose", action = 'store_true')
         parser.add_argument('-f', help="Name of the final file", default='stacked.txt')
+        parser.add_argument('-SNR', help="Compute SNR in a given region. \
+                Ex: 2.5,1070,1170 will set a threshold od SNR=2.5 between 1070 and 1170 [wavelength in the restframe!])")
+        parser.add_argument('--full', help="full wavelength", action = 'store_true')
 
         ##### GET the Arguments for specstack startup
         self.arguments = parser.parse_args()

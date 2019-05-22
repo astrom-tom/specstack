@@ -56,6 +56,7 @@ def main():
         restframe = []
         waves_0 = []
         waves_f = []
+        allz = []
         N = 0
         for (i,j) in zip(names, redshift):
             if args.d:
@@ -63,42 +64,51 @@ def main():
             else:
                 filespec = i
 
-            if not os.path.isfile(filespec):
+            if not os.path.isfile(filespec) and args.v is True: 
                 print('\033[1m Spectrum %s not found, skip \033[0m'%i)
 
             else:
                 N += 1
-                wave, flux = spec.restframe_normalised(filespec, j, lims[0], lims[1])
+                wave, flux = spec.restframe_normalised(filespec, j, lims[0], lims[1], args.SNR, args.v)
+                allz.append(j)
                 if wave != []:
                     restframe.append((wave, flux))
                     waves_0.append(wave[0])
                     waves_f.append(wave[-1])
 
         ##define limits of the spectrum
-        minw = max(waves_0)
-        maxw = min(waves_f)
-        print('\033[1m The stack spectrum will be computed between %.1f and %.1f \033[0m'%(minw, maxw))
-        print('\033[1m The stack spectrum will be computed from %s spectra \033[0m'%N)
+        if not args.full:
+            minw = max(waves_0)
+            maxw = min(waves_f)
+        else:
+            minw = min(waves_0)
+            maxw = max(waves_f)
+
+        if args.v:
+            print('\033[1m The stack spectrum will be computed between %.1f and %.1f \033[0m'%(minw, maxw))
+            print('\033[1m The stack spectrum will be computed from %s spectra \033[0m'%N)
+        print(allz)
+        print('\033[1m The average redshift is %s \033[0m'%numpy.mean(allz))
+
         grid = numpy.arange(minw, maxw, 1)
 
-       ##and new grid
-        
         ###and regrid all the spec
         rebinned = spec.regrid(restframe, grid)
 
         ##create stack
-        stacked, std, ermean = spec.stack(rebinned, float(args.s))
+        stacked, std, ermean, N = spec.stack(rebinned, float(args.s))
 
         ##and prod 
         final_grid = numpy.arange(minw, maxw, float(args.bin))
         final_stack = numpy.interp(final_grid, grid, stacked)
         final_std = numpy.interp(final_grid, grid, std)
         final_ermean = numpy.interp(final_grid, grid, ermean)
+        final_N = numpy.interp(final_grid, grid, N)
         
-        wave, flux = spec.renorm(final_grid, final_stack, 0, lims[0], lims[1])
+        wave, flux = spec.renorm(final_grid, final_stack, 0, lims[0], lims[1], args.v)
 
         ##and save it
-        numpy.savetxt(args.f, numpy.array([wave, flux, final_std, final_ermean]).T)
+        numpy.savetxt(args.f, numpy.array([wave, flux, final_std, final_ermean, final_N]).T)
 
         ##eventually plot
         if args.p:

@@ -68,10 +68,11 @@ def main():
                 print('\033[1m Spectrum %s not found, skip \033[0m'%i)
 
             else:
-                N += 1
-                wave, flux = spec.restframe_normalised(filespec, j, lims[0], lims[1], args.SNR, args.v)
+                wave, flux = spec.restframe_normalised(filespec, j, lims[0], \
+                        lims[1], args.SNR, args.v)
                 allz.append(j)
                 if wave != []:
+                    N += 1
                     restframe.append((wave, flux))
                     waves_0.append(wave[0])
                     waves_f.append(wave[-1])
@@ -87,8 +88,8 @@ def main():
         if args.v:
             print('\033[1m The stack spectrum will be computed between %.1f and %.1f \033[0m'%(minw, maxw))
             print('\033[1m The stack spectrum will be computed from %s spectra \033[0m'%N)
-        print(allz)
-        print('\033[1m The average redshift is %s \033[0m'%numpy.mean(allz))
+        #print(allz)
+        print('\033[1m The average redshift is %s \033[0m'%round(numpy.mean(allz),4))
 
         grid = numpy.arange(minw, maxw, 1)
 

@@ -14,6 +14,7 @@ This file contains the spectroscopic source code
 
 ##Python standard library
 import sys
+import os
 import time
 
 ##python third party
@@ -77,17 +78,19 @@ def restframe_normalised(spec, z, l0, l1, SNR, verbose):
 
         if snr_data < snr_threshold:
             if verbose:
-                print('The SNR is too low for spec %s (SNR=%s)'%(spec, snr_data))
+                print('The SNR is too low for spec %s (SNR=%s)'%(os.path.basename(spec), snr_data))
             return [], []
 
 
+    if z>7:
+        return [], []
     ###find the region where to normalize
     reg = numpy.where(numpy.logical_and(numpy.greater_equal(wave_0,l0),numpy.less_equal(wave_0,l1)))
 
     ###check if the region reports anything
     if len(reg[0]) == 0:
         if verbose:
-            print('the region does not exist in spec %s(restframe), we skip'%spec)
+            print('The region does not exist in spec %s (restframe), we skip it'%os.path.basename(spec))
         return [], []
     
     region = wave_0[reg]
@@ -136,7 +139,7 @@ def renorm(wave, flux, z, l0, l1, verbose):
     ###check if the region reports anything
     if len(reg[0]) == 0:
         if verbose:
-            print('the region does not exist in spec %s(restframe), we skip'%spec)
+            print('The region does not exist in spec %s(restframe), we skip'%spec)
         return [], []
 
     region = wave_0[reg]
@@ -218,12 +221,12 @@ def stack(rebinned, sigma):
             std.append(i[index][0])
             ermean.append(i[index][0])
         elif no_nan < 10:
-            stacked.append(numpy.nanmean(i[index]))
+            stacked.append(numpy.nanmedian(i[index]))
             std.append(numpy.nanstd(i[index]))
             ermean.append(numpy.nanstd(numpy.sqrt(no_nan)))
         else:
             c, low, upp = stats.sigmaclip(i[index], sigma, sigma)
-            stacked.append(numpy.nanmean(c))
+            stacked.append(numpy.nanmedian(c))
             std.append(numpy.nanstd(c))
             ermean.append(numpy.nanstd(c)/numpy.count_nonzero(~numpy.isnan(c)))
 
